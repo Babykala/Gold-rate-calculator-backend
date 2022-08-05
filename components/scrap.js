@@ -46,9 +46,14 @@ module.exports={
           
         }
         const main = async () =>{
+            try{
             await mongo.connectMongoose();
             const priceList = await goldPrice();
             return priceList;
+            }
+            catch(e) {
+                console.log('Error happened while connecting to the DB: ', e.message)
+               }
             }
         
         main();
