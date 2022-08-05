@@ -5,7 +5,7 @@ const mongo=require('../connect');
 module.exports={
     Price:()=>{
         const goldPrice=async()=>{
-           try{
+           
             var cities=['mumbai','chennai','delhi','hyderabad','bangalore','goa','kerala','kolkatta'];
             for(i=0;i<cities.length;i++){
                 const url=`https://www.goldpricesindia.com/cities/${cities[i]}`
@@ -26,20 +26,23 @@ module.exports={
                 //     dateTime:result[2]
             
                 // })
-    
                     var myquery = { city:cities[i] };
                     var newvalues = {$set: {price:result[0].trim().replace(/,/g, ''),gram:result[1].trim(),dateTime:result[2]} };
-                    priceList.updateMany(myquery, newvalues, async function(err, res) {
-                        try{console.log(res.modifiedCount + " document(s) updated")}
-                        catch(error) { throw error}
+                    priceList.updateMany(myquery, newvalues,async function(err, res) { 
+                        try{
+                            var result= await res.modifiedCount;
+                            console.log( result + " document(s) updated")
+                        }
+                        catch(err){ throw err}
                       
-                    }) 
+                    })
+               
+                
+                
                 browser.close();
             }
-        }
-        catch(error){
-            console.log(error)
-           }
+            
+          
         }
         const main = async () =>{
             try{
