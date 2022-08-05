@@ -1,7 +1,6 @@
 const puppeteer = require('puppeteer');
 const priceList=require('../model/price');
 const mongo=require('../connect');
-const { connect } = require('mongoose');
 
 module.exports={
     Price:()=>{
@@ -18,7 +17,7 @@ module.exports={
                 const txt=await el.getProperty('textContent');
                 const price=await txt.jsonValue();
                 const result=price.trim().split('\n')
-                // console.log(price)
+                console.log(price)
                 
                 priceList.create({
                     city:cities[i],
@@ -27,29 +26,23 @@ module.exports={
                     dateTime:result[2]
             
                 })
-                
-                    // var myquery = { city:cities[i] };
-                    // var newvalues = {$set: {price:result[0].trim().replace(/,/g, ''),gram:result[1].trim(),dateTime:result[2]} };
-                    // priceList.updateMany(myquery, newvalues, async function(err, res) {
-                    //     if (err) throw err;
-                    //     console.log(res.modifiedCount + " document(s) updated");
-                    // })
-                                              
+
+                // priceList.updateMany({
+                //     filter:{city:cities[i]},
+                //     price:result[0].trim().replace(/,/g, ''),
+                //     gram:result[1].trim(),
+                //     dateTime:result[2]
+                // })
                 browser.close();
-            
-           }
-          
-            
+                // return result
+            }
             
           
         }
         const main = async () =>{
-            
             await mongo.connectMongoose();
             const priceList = await goldPrice();
             return priceList;
-            
-            
             }
         
         main();
