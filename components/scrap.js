@@ -26,13 +26,6 @@ module.exports={
                     dateTime:result[2]
             
                 })
-
-                // priceList.updateMany({
-                //     filter:{city:cities[i]},
-                //     price:result[0].trim().replace(/,/g, ''),
-                //     gram:result[1].trim(),
-                //     dateTime:result[2]
-                // })
                 browser.close();
                 // return result
             }
