@@ -17,10 +17,14 @@ module.exports={
         headers: myHeaders,
         redirect: 'follow'
         };
-
-        const res=await axios.get(`https://www.goldapi.io/api/XAU/INR/20220804`,requestOptions)
-        console.log(res.data)
+        try {
+            const res=await axios.get(`https://www.goldapi.io/api/XAU/INR/20220804`,requestOptions)
+            console.log(res.data)
+        } catch (error) {
+            console.log(error)
+        }
         
+
     }
 
     const main = async () =>{
