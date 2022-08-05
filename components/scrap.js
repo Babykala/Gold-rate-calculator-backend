@@ -20,20 +20,20 @@ module.exports={
                 const result=price.trim().split('\n')
                 // console.log(price)
                 
-                // priceList.create({
-                //     city:cities[i],
-                //     price:result[0].trim().replace(/,/g, ''),
-                //     gram:result[1].trim(),
-                //     dateTime:result[2]
+                priceList.create({
+                    city:cities[i],
+                    price:result[0].trim().replace(/,/g, ''),
+                    gram:result[1].trim(),
+                    dateTime:result[2]
             
-                // })
+                })
                 
-                    var myquery = { city:cities[i] };
-                    var newvalues = {$set: {price:result[0].trim().replace(/,/g, ''),gram:result[1].trim(),dateTime:result[2]} };
-                    priceList.updateMany(myquery, newvalues, async function(err, res) {
-                        if (err) throw err;
-                        console.log(res.modifiedCount + " document(s) updated");
-                    })
+                    // var myquery = { city:cities[i] };
+                    // var newvalues = {$set: {price:result[0].trim().replace(/,/g, ''),gram:result[1].trim(),dateTime:result[2]} };
+                    // priceList.updateMany(myquery, newvalues, async function(err, res) {
+                    //     if (err) throw err;
+                    //     console.log(res.modifiedCount + " document(s) updated");
+                    // })
                                               
                 browser.close();
             }
