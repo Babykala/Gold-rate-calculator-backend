@@ -6,7 +6,7 @@ const { connect } = require('mongoose');
 module.exports={
     Price:()=>{
         const goldPrice=async()=>{
-           try{
+           
             var cities=['mumbai','chennai','delhi','hyderabad','bangalore','goa','kerala','kolkatta'];
             for(i=0;i<cities.length;i++){
                 const url=`https://www.goldpricesindia.com/cities/${cities[i]}`
@@ -36,24 +36,20 @@ module.exports={
                     // })
                                               
                 browser.close();
-            }
+            
            }
-           catch(error){
-            console.log(error)
-        }
+          
             
             
           
         }
         const main = async () =>{
-            try{
+            
             await mongo.connectMongoose();
             const priceList = await goldPrice();
             return priceList;
-            }
-            catch(e) {
-                console.log('Error happened while connecting to the DB: ', e.message)
-               }
+            
+            
             }
         
         main();
