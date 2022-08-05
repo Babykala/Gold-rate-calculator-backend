@@ -26,18 +26,15 @@ module.exports={
                 //     dateTime:result[2]
             
                 // })
-                try{
+    
                     var myquery = { city:cities[i] };
                     var newvalues = {$set: {price:result[0].trim().replace(/,/g, ''),gram:result[1].trim(),dateTime:result[2]} };
                     priceList.updateMany(myquery, newvalues, async function(err, res) {
-                        if (err) throw err;
-                        console.log(res.modifiedCount + " document(s) updated");
+                        try{console.log(res.modifiedCount + " document(s) updated")}
+                        catch(error) { throw error}
                       
                     })
-                }
-                catch(error){
-                    console.log(error)
-                }
+                
                 
                 
                 browser.close();
