@@ -28,9 +28,8 @@ module.exports={
                 // })
                 var myquery = { city:cities[i] };
                 var newvalues = {$set: {price:result[0].trim().replace(/,/g, ''),gram:result[1].trim(),dateTime:result[2]} };
-                priceList.updateMany(myquery, newvalues, function(err, res) {
-                    try{console.log(res)}
-                    catch (err){throw err} 
+                priceList.updateMany(myquery, newvalues, function(res) {
+                    console.log(res)
                 })
                 
                 browser.close();
