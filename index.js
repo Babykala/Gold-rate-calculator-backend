@@ -26,7 +26,15 @@ app.use('/get',async(req,res,next)=>{
 
 const port=process.env.PORT||8080
 
-app.listen(port,()=> {
+const server=app.listen(port,()=> {
     console.log(`Server running at ${process.env.PORT}`);
     main();
+})
+
+//Handle unhandled Promise Rejection
+process.on('unhandledRejection',err=>{
+    console.log(err.message);
+    server.close(()=>{
+        process.exit(1)
+    })
 })

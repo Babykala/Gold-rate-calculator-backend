@@ -16,17 +16,14 @@ module.exports={
                 const [el]=await page.$x('/html/body/div[2]/div[2]/div[1]/aricle/div[1]/div/div[1]')
                 const txt=await el.getProperty('textContent');
                 const price=await txt.jsonValue();
-                const result=price.trim().split('\n');
-                const rate=result[0].trim().replace(/,/g, '');
-                const dateTime=result[1].trim();
-                // console.log(result)
+                const res=price.trim().split('\n');
+                const rate=res[0].trim().replace(/,/g, '');
+                const dateTime=res[2].trim();
                 
                 // priceList.create({
                 //     city:cities[i],
-                //     price:result[0].trim().replace(/,/g, ''),
-                //     gram:result[1].trim(),
-                //     dateTime:result[2]
-            
+                //     price:rate,
+                //     dateTime:dateTime
                 // })
                 
                         
@@ -45,7 +42,7 @@ module.exports={
                       }
                     )();
                 browser.close();
-                // return result
+              
             }
         }
         catch(error){
