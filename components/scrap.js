@@ -16,8 +16,8 @@ module.exports={
                 const [el]=await page.$x('/html/body/div[2]/div[2]/div[1]/aricle/div[1]/div/div[1]')
                 const txt=await el.getProperty('textContent');
                 const price=await txt.jsonValue();
-                const result=price.trim().split('\n')
-                // console.log(price)
+                const result=price.trim().split('\n');
+                // console.log(result)
                 
                 // priceList.create({
                 //     city:cities[i],
@@ -26,12 +26,19 @@ module.exports={
                 //     dateTime:result[2]
             
                 // })
-                var myquery = { city:cities[i] };
-                    var newvalues = {$set: {price:result[0].trim().replace(/,/g, ''),gram:result[1].trim(),dateTime:result[2]} };
-                    await priceList.updateMany(myquery, newvalues) 
+                
                         
-                  
-
+                    (async () => {
+                        try {
+                            var myquery = { city:cities[i] };
+                            var newvalues = {$set: {price:result[0].trim().replace(/,/g, ''),gram:result[1].trim(),dateTime:result[2]} };
+                            await priceList.updateMany(myquery, newvalues) 
+                            
+                        } catch (error) {
+                            console.log(error)
+                        }
+                      }
+                    )();
                 browser.close();
                 // return result
             }
