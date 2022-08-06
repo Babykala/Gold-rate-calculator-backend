@@ -32,7 +32,11 @@ module.exports={
                         try {
                             var myquery = { city:cities[i] };
                             var newvalues = {$set: {price:result[0].trim().replace(/,/g, ''),gram:result[1].trim(),dateTime:result[2]} };
-                            await priceList.updateMany(myquery, newvalues) 
+                            await priceList.findOneAndUpdate(myquery, newvalues, {upsert: true, useFindAndModify: false}, function(err, res) {
+                                if (err) return{error: err}
+                                return res;
+                            });
+                            // updateMany(myquery, newvalues) 
                             
                         } catch (error) {
                             console.log(error)
