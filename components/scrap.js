@@ -17,6 +17,8 @@ module.exports={
                 const txt=await el.getProperty('textContent');
                 const price=await txt.jsonValue();
                 const result=price.trim().split('\n');
+                const rate=result[0].trim().replace(/,/g, '');
+                const dateTime=result[1].trim();
                 // console.log(result)
                 
                 // priceList.create({
@@ -31,12 +33,11 @@ module.exports={
                     (async () => {
                         try {
                             var myquery = { city:cities[i] };
-                            var newvalues = {$set: {price:result[0].trim().replace(/,/g, ''),gram:result[1].trim(),dateTime:result[2]} };
-                            await priceList.findOneAndUpdate(myquery, newvalues, {upsert: true, useFindAndModify: false}, function(err, res) {
+                            var newvalues = {$set: {price:rate,dateTime:dateTime} };
+                            await priceList.updateMany(myquery, newvalues, function(err, res) {
                                 if (err) return{error: err}
-                                return res;
+                                console.log(res.nModified+"document(s) updated")
                             });
-                            // updateMany(myquery, newvalues) 
                             
                         } catch (error) {
                             console.log(error)
