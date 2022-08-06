@@ -26,11 +26,18 @@ module.exports={
                 //     dateTime:result[2]
             
                 // })
-                var myquery = { city:cities[i] };
-                var newvalues = {$set: {price:result[0].trim().replace(/,/g, ''),gram:result[1].trim(),dateTime:result[2]} };
-                const updateList=await priceList.updateMany(myquery, newvalues) 
+                
                 
                 // console.log(updateList)
+                async function update() {
+                    // No unhandled rejection!
+                    var myquery = { city:cities[i] };
+                    var newvalues = {$set: {price:result[0].trim().replace(/,/g, ''),gram:result[1].trim(),dateTime:result[2]} };
+                    await priceList.updateMany(myquery, newvalues) 
+                    await Promise.reject(new Error('test'));
+                  }
+                  
+                  update().catch(() => {});
 
                 browser.close();
                 // return result
